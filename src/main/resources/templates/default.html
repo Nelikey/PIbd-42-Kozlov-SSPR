@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Козлов.ИП</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" href="/favicon.svg">
+    <script type="text/javascript" src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.1.0/css/all.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <i class="fa-solid fa-font-awesome"></i>
+            Приложение
+        </a>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav" th:with="activeLink=${#request.requestURI}">
+                <a class="nav-link" href="/"
+                   th:classappend="${#strings.equals(activeLink, '/')} ? 'active' : ''">Главная</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_DOCTOR') or hasRole('ROLE_PATIENT')" class="nav-link" href="/district"
+                   th:classappend="${#strings.equals(activeLink, '/district')} ? 'active' : ''">Мед. участки</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_DOCTOR') or hasRole('ROLE_PATIENT')" class="nav-link" href="/doctor"
+                   th:classappend="${#strings.equals(activeLink, '/doctor')} ? 'active' : ''">Уч. врачи</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_DOCTOR')" class="nav-link" href="/patient"
+                   th:classappend="${#strings.equals(activeLink, '/patient')} ? 'active' : ''">Пациенты</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/rest-test"
+                   th:classappend="${#strings.equals(activeLink, '/rest-test')} ? 'active' : ''">Пример запроса к Rest Api</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/swagger-ui/index.html" target="_blank">Swagger</a>
+
+                <a sec:authorize="hasRole('ROLE_ADMIN')"  class="nav-link" style="border-left: 2px solid;" href="/swagger-ui/index.html" target="_blank">Документация REST API</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/h2-console/" target="_blank">Консоль H2</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/users"
+                   th:classappend="${#strings.equals(activeLink, '/users')} ? 'active' : ''">Пользователи</a>
+                <a class="nav-link" style="border-left: 2px solid;" href="/logout">Выход</a>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="container container-padding" layout:fragment="content">
+    </div>
+</div>
+</body>
+<th:block layout:fragment="scripts">
+</th:block>
+</html>
