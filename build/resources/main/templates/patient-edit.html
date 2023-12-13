@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default}" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:text="${errors}" class="margin-bottom alert-danger"></div>
+    <form action="#" th:action="@{/patient/edit/{id}(id=${id})}" th:object="${patientDto}" method="post">
+        <div class="mb-3">
+            <label for="firstname" class="form-label">Имя</label>
+            <input type="text" class="form-control" id="firstname" th:field="${patientDto.FirstName}" name="patientDto.FirstName" required="true">
+            <label for="lastname" class="form-label">Фамилия</label>
+            <input type="text" class="form-control" id="lastname" th:field="${patientDto.LastName}" name="patientDto.LastName" required="true">
+            <label for="phonenumber" class="form-label">Телефонный номер</label>
+            <input type="text" class="form-control" id="phonenumber" th:field="${patientDto.phoneNumber}" name="patientDto.phoneNumber" required="true">
+            <label class="form-label" style="margin-top: 1%">ID мед. участка</label>
+            <select class="form-control" th:field="${patientDto.districtId}">
+                <option th:each="district, iterator: ${districts}" th:value="${district.id}" th:text="${district.description}" />
+            </select>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary button-fixed">
+                <span th:if="${id == null}">Добавить</span>
+                <span th:if="${id != null}">Обновить</span>
+            </button>
+            <a class="btn btn-secondary button-fixed" th:href="@{/patient}">
+                Назад
+            </a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
