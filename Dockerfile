@@ -37,4 +37,4 @@ RUN gradle clean build
 EXPOSE 8081
 
 # Запускаем JAR-файл
-#CMD ["java", "-jar", "hospital.jar"]
+CMD ["java", "-jar", "hospital.jar"]
