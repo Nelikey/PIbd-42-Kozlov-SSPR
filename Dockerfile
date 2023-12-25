@@ -8,7 +8,7 @@ COPY --chown=gradle:gradle . /home/gradle/project
 WORKDIR /home/gradle/project
 
 # Собираем проект с помощью Gradle
-#RUN gradle clean build
+RUN gradle clean build
 
 # Используем базовый образ с Java
 FROM gradle:7.6-jdk19
@@ -33,8 +33,8 @@ COPY . /app/
 # Собираем проект с помощью Gradle
 RUN gradle clean build
 
-# Пробрасываем порт 8081
-EXPOSE 8081
+# Пробрасываем порт 8085
+EXPOSE 8085
 
 # Запускаем JAR-файл
 #CMD ["java", "-jar", "hospital.jar"]
