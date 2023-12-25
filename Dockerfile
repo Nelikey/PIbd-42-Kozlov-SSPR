@@ -36,6 +36,6 @@ RUN gradle clean build
 # Пробрасываем порт 8085
 EXPOSE 8085
 
-RUN gradle test
+RUN gradle test --no-cache
 # Запускаем JAR-файл
 #CMD ["java", "-jar", "hospital.jar"]
